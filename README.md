@@ -5,8 +5,7 @@ Paradise Nursery is an online plant shop shopping cart application built with Re
 This project is the final project for IBM's Developing Front-End Apps with React course on Coursera. It lets users browse houseplants, add them to a shopping cart, update quantities, and review the total cost before checkout.
 
 ## Live app
-
-https://zarak-ahmad.github.io/e-plantShopping/
+(https://uzi-gpu.github.io/Paradise-Nursery/)
 
 ## Project name
 
