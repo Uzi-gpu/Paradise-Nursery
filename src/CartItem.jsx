@@ -8,13 +8,10 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   const calculateTotalAmount = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      const cost = parseFloat(item.cost.substring(1));
-      total += cost * item.quantity;
-    });
-    return total;
+    return cart.reduce((total, item) => total + getUnitPrice(item) * item.quantity, 0);
   };
+
+  const getUnitPrice = (item) => Number.parseFloat(String(item.cost).replace(/[^0-9.]/g, '')) || 0;
 
   const calculateTotalQuantity = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
@@ -47,8 +44,7 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const calculateTotalCost = (item) => {
-    const cost = parseFloat(item.cost.substring(1));
-    return cost * item.quantity;
+    return getUnitPrice(item) * item.quantity;
   };
 
   return (
@@ -56,10 +52,13 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="cart-container">
         <h2 style={{ color: 'black' }}>Total Plants in Cart: {calculateTotalQuantity()}</h2>
         <h2 style={{ color: 'black' }} className="total_cart_amount">
-          Total Cart Amount: ${calculateTotalAmount()}
+          Total Cart Amount: ${calculateTotalAmount().toFixed(2)}
         </h2>
-        <div>
-          {cart.map((item) => (
+        {cart.length === 0 ? (
+          <p className="empty-cart-message">Your cart is empty. Explore our plants to get started.</p>
+        ) : (
+          <div>
+            {cart.map((item) => (
             <div className="cart-item" key={item.name}>
               <img className="cart-item-image" src={item.image} alt={item.name} />
               <div className="cart-item-details">
@@ -80,14 +79,15 @@ const CartItem = ({ onContinueShopping }) => {
                     +
                   </button>
                 </div>
-                <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
+                <div className="cart-item-total">Total: ${calculateTotalCost(item).toFixed(2)}</div>
                 <button className="cart-item-delete" onClick={() => handleRemove(item)}>
                   Delete
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         <div className="continue_shopping_btn">
           <button className="get-started-button1" onClick={(e) => handleContinueShopping(e)}>
             Continue Shopping

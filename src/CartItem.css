@@ -93,6 +93,12 @@
   color: black;
 }
 
+.empty-cart-message {
+  color: #333;
+  font-size: 18px;
+  text-align: center;
+}
+
 .continue_shopping_btn {
   margin-top: 10px;
   text-align: center;
